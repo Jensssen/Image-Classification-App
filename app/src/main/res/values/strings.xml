@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RockPaperScissorsApp</string>
+    <string name="btn_start_game">Start Game</string>
+</resources>
