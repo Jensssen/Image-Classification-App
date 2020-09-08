@@ -4,17 +4,20 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.amplifyframework.AmplifyException
+import com.amplifyframework.core.Amplify
 
 
 class MainActivity : AppCompatActivity() {
 
-    val CAMERA_REQUEST = 102;
+    private val CAMERAREQUEST = 102
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +31,13 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        try {
+            Amplify.configure(applicationContext)
+            Log.i("MyAmplifyApp", "Initialized Amplify")
+        } catch (error: AmplifyException) {
+            Log.e("MyAmplifyApp", "Could not initialize Amplify", error)
+        }
+
     }
 
     override fun onStart() {
@@ -37,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        checkForPermission(android.Manifest.permission.CAMERA, "camera", CAMERA_REQUEST)
+        checkForPermission(android.Manifest.permission.CAMERA, "camera", CAMERAREQUEST)
 
 
     }
@@ -86,7 +96,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         when (requestCode) {
-            CAMERA_REQUEST -> innerCheck("camera")
+            CAMERAREQUEST -> innerCheck("camera")
         }
     }
 
@@ -105,7 +115,7 @@ class MainActivity : AppCompatActivity() {
         builder.apply {
             setMessage("Permission to access your $name is required to use this app.")
             setTitle("Permission required")
-            setPositiveButton("OK") { dialog, which ->
+            setPositiveButton("OK") { _, _ ->
                 ActivityCompat.requestPermissions(
                     this@MainActivity,
                     arrayOf(permission),
