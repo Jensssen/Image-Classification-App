@@ -10,6 +10,13 @@
       "StackName": "amplify-imgclassificationapp-dev-195445",
       "StackId": "arn:aws:cloudformation:eu-central-1:830464318155:stack/amplify-imgclassificationapp-dev-195445/6246ef50-f1fc-11ea-82ab-0ab7fff4b680",
       "AmplifyAppId": "d2zzig09dw6j5x"
+    },
+    "categories": {
+      "auth": {
+        "imgclassificationapp82e56d58": {
+          "hostedUIProviderCreds": "[]"
+        }
+      }
     }
   }
 }
