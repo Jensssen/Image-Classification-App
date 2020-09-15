@@ -12,13 +12,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.amplifyframework.AmplifyException
+import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
+import com.amplifyframework.auth.options.AuthSignOutOptions
+import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin
 
 
 class MainActivity : AppCompatActivity() {
 
     private val CAMERAREQUEST = 102
+    private val STORAGEREQUEST = 103
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +36,50 @@ class MainActivity : AppCompatActivity() {
             this.startActivity(myIntent)
         }
 
-        try {
-            Amplify.addPlugin(AWSCognitoAuthPlugin())
-            Amplify.configure(applicationContext)
-            Log.i("MyAmplifyApp", "Initialized Amplify")
-        } catch (error: AmplifyException) {
-            Log.e("MyAmplifyApp", "Could not initialize Amplify", error)
-        }
-        Amplify.Auth.fetchAuthSession(
-            { result -> Log.i("AmplifyQuickstart", result.toString()) },
-            { error -> Log.e("AmplifyQuickstart", error.toString()) }
-        )
 
+        // Log OUT button
+        val btn_logout = findViewById<Button>(R.id.btn_logout)
+        btn_logout.setOnClickListener {
+            Amplify.Auth.signOut(
+                AuthSignOutOptions.builder().globalSignOut(true).build(),
+                { Log.i("AuthQuickstart", "Signed out globally")
+
+                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    finish() // finish the current activity
+
+                },
+                { error -> Log.e("AuthQuickstart", error.toString()) }
+            )
+        }
+
+
+        Log.i("aa", "a")
+//        Amplify.Auth.signIn(
+//            "soeren",
+//            "rockpaper123",
+//            { result -> Log.i("AuthQuickstart", if (result.isSignInComplete) "Sign in succeeded" else "Sign in not complete") },
+//            { error -> Log.e("AuthQuickstart", error.toString()) }
+//        )
+//        Amplify.Auth.fetchAuthSession(
+//            { result -> Log.i("AmplifyQuickstart", result.toString()) },
+//            { error -> Log.e("AmplifyQuickstart", error.toString()) }
+//        )
+//        Amplify.Auth.signUp(
+//            "soeren",
+//            "rockpaper123",
+//            AuthSignUpOptions.builder().userAttribute(AuthUserAttributeKey.email(), "soeren.erichsen99@gmail.com").build(),
+//            { result -> Log.i("AuthQuickStart", "Result: $result") },
+//            { error -> Log.e("AuthQuickStart", "Sign up failed", error) }
+//        )
+
+//        Amplify.Auth.confirmSignUp(
+//            "soeren",
+//            "531196",
+//            { result -> Log.i("AuthQuickstart", if (result.isSignUpComplete) "Confirm signUp succeeded" else "Confirm sign up not complete") },
+//            { error -> Log.e("AuthQuickstart", error.toString()) }
+//        )
     }
 
     override fun onStart() {
@@ -53,6 +90,11 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         checkForPermission(android.Manifest.permission.CAMERA, "camera", CAMERAREQUEST)
+        checkForPermission(
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            "External Storage",
+            STORAGEREQUEST
+        )
 
 
     }
@@ -93,11 +135,13 @@ class MainActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        fun innerCheck(name: String){
-            if(grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(applicationContext, "$name permission refused", Toast.LENGTH_SHORT).show()
+        fun innerCheck(name: String) {
+            if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(applicationContext, "$name permission refused", Toast.LENGTH_SHORT)
+                    .show()
             } else {
-                Toast.makeText(applicationContext, "$name permission granted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "$name permission granted", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
         when (requestCode) {
