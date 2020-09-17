@@ -29,21 +29,38 @@ import java.util.*
 class GameActivity : AppCompatActivity() {
 
     val CAMERA_REQUEST_CODE = 0
+    var classlabel:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        val btn_take_picture = findViewById<Button>(R.id.btn_take_image)
-        val btn_upload = findViewById<Button>(R.id.btn_upload)
+        val btn_rock = findViewById<Button>(R.id.btn_rock)
+        val btn_paper = findViewById<Button>(R.id.btn_paper)
+        val btn_scissor = findViewById<Button>(R.id.btn_scissor)
 
-        btn_take_picture.setOnClickListener{
+        btn_rock.setOnClickListener{
+            classlabel = "rock"
+            val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (callCameraIntent.resolveActivity(packageManager) != null){
+                startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
+            }
+        }
+        btn_paper.setOnClickListener{
+            classlabel = "paper"
             val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             if (callCameraIntent.resolveActivity(packageManager) != null){
                 startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
             }
         }
 
+        btn_scissor.setOnClickListener{
+            classlabel = "scissor"
+            val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (callCameraIntent.resolveActivity(packageManager) != null){
+                startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
+            }
+        }
 
 
 //        btn_upload.setOnClickListener{
@@ -59,7 +76,6 @@ class GameActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val image = findViewById<ImageView>(R.id.image)
-        val tv_image_url = findViewById<TextView>(R.id.tv_file_url)
         when(requestCode) {
             CAMERA_REQUEST_CODE -> {
                 if(resultCode == Activity.RESULT_OK && data != null){
@@ -96,9 +112,6 @@ class GameActivity : AppCompatActivity() {
 
 
     private fun uploadFile(file: File) {
-
-
-
 
         Amplify.Storage.uploadFile(
             file.name,

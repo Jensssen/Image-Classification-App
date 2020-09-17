@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">RockPaperScissorsApp</string>
     <string name="btn_start_game">Start Game</string>
+    <string name="btn_start_labeling">Start Labeling</string>
     <string name="sign_in">Sign In</string>
     <string name="tv_username">Username:</string>
     <string name="tv_password">Password:</string>
     <string name="tv_email">Email:</string>
     <string name="btn_newacc">Create New Account</string>
     <string name="btn_createaccount">Create Account</string>
+    <string name="btn_rock">Rock</string>
+    <string name="btn_paper">Paper</string>
+    <string name="btn_scissor">Scissor</string>
 
 </resources>
