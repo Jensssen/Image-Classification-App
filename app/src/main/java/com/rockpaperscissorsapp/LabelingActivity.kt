@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -15,23 +16,38 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.amplifyframework.core.Amplify
 import java.io.File
-import java.io.File.separator
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class GameActivity : AppCompatActivity() {
-
+class LabelingActivity : AppCompatActivity() {
     val CAMERA_REQUEST_CODE = 0
-    var folder_name:String = ""
+    var classlabel:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
+        setContentView(R.layout.activity_labeling)
 
-        val btn_inference = findViewById<Button>(R.id.btn_inference)
+        val btn_rock = findViewById<Button>(R.id.btn_rock)
+        val btn_paper = findViewById<Button>(R.id.btn_paper)
+        val btn_scissor = findViewById<Button>(R.id.btn_scissor)
 
-        btn_inference.setOnClickListener{
-            folder_name = "inference"
+        btn_rock.setOnClickListener{
+            classlabel = "rock"
+            val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (callCameraIntent.resolveActivity(packageManager) != null){
+                startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
+            }
+        }
+        btn_paper.setOnClickListener{
+            classlabel = "paper"
+            val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (callCameraIntent.resolveActivity(packageManager) != null){
+                startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
+            }
+        }
+
+        btn_scissor.setOnClickListener{
+            classlabel = "scissor"
             val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             if (callCameraIntent.resolveActivity(packageManager) != null){
                 startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
@@ -51,7 +67,7 @@ class GameActivity : AppCompatActivity() {
         when(requestCode) {
             CAMERA_REQUEST_CODE -> {
                 if(resultCode == Activity.RESULT_OK && data != null){
-                    var file = saveImage(data.extras?.get("data") as Bitmap, applicationContext,"inference")
+                    var file = saveImage(data.extras?.get("data") as Bitmap, applicationContext,"rockPaperScissors")
                     uploadFile(file)
                     image.setImageBitmap(data.extras?.get("data") as Bitmap)
                 }
@@ -64,7 +80,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun uploadFile(file: File) {
         Amplify.Storage.uploadFile(
-            folder_name + "/" + file.name,
+            classlabel + "/" + file.name,
             file,
             { result -> Log.i("MyAmplifyApp", "Successfully uploaded: " + result.getKey()) },
             { error -> Log.e("MyAmplifyApp", "Upload failed", error) }
@@ -74,7 +90,7 @@ class GameActivity : AppCompatActivity() {
     /// @param folderName can be your app's name
     private fun saveImage(bitmap: Bitmap, context: Context, folderName: String): File {
 
-        val directory = File(Environment.getExternalStorageDirectory().toString() + separator + folderName)
+        val directory = File(Environment.getExternalStorageDirectory().toString() + File.separator + folderName)
         // getExternalStorageDirectory is deprecated in API 29
 
         if (!directory.exists()) {
@@ -90,7 +106,6 @@ class GameActivity : AppCompatActivity() {
             context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
         }
         return file
-
     }
 
     private fun contentValues() : ContentValues {
