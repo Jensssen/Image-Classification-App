@@ -11,5 +11,7 @@
     <string name="btn_rock">Rock</string>
     <string name="btn_paper">Paper</string>
     <string name="btn_scissor">Scissor</string>
+    <string name="btn_inference">Perform Inference</string>
+
 
 </resources>

@@ -39,8 +39,8 @@ class CreateNewAccountActivity : AppCompatActivity() {
         }
 
         Amplify.Auth.confirmSignUp(
-            "jensen",
-            "842617",
+            "jensen123",
+            "988030",
             { result -> Log.i("AuthQuickstart", if (result.isSignUpComplete) "Confirm signUp succeeded" else "Confirm sign up not complete") },
             { error -> Log.e("AuthQuickstart", error.toString()) }
         )
