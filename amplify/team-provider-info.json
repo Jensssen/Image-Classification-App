@@ -1,21 +1,22 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-imgclassificationapp-dev-195445-authRole",
-      "UnauthRoleArn": "arn:aws:iam::830464318155:role/amplify-imgclassificationapp-dev-195445-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::830464318155:role/amplify-imgclassificationapp-dev-195445-authRole",
+      "AuthRoleName": "amplify-rockpaperscissor-dev-143614-authRole",
+      "UnauthRoleArn": "arn:aws:iam::830464318155:role/amplify-rockpaperscissor-dev-143614-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::830464318155:role/amplify-rockpaperscissor-dev-143614-authRole",
       "Region": "eu-central-1",
-      "DeploymentBucketName": "amplify-imgclassificationapp-dev-195445-deployment",
-      "UnauthRoleName": "amplify-imgclassificationapp-dev-195445-unauthRole",
-      "StackName": "amplify-imgclassificationapp-dev-195445",
-      "StackId": "arn:aws:cloudformation:eu-central-1:830464318155:stack/amplify-imgclassificationapp-dev-195445/6246ef50-f1fc-11ea-82ab-0ab7fff4b680",
-      "AmplifyAppId": "d2zzig09dw6j5x"
+      "DeploymentBucketName": "amplify-rockpaperscissor-dev-143614-deployment",
+      "UnauthRoleName": "amplify-rockpaperscissor-dev-143614-unauthRole",
+      "StackName": "amplify-rockpaperscissor-dev-143614",
+      "StackId": "arn:aws:cloudformation:eu-central-1:830464318155:stack/amplify-rockpaperscissor-dev-143614/61412ca0-f8e2-11ea-8d6c-0a78571d47e2",
+      "AmplifyAppId": "dxh61b0k4icsc"
     },
     "categories": {
       "auth": {
         "imgclassificationapp82e56d58": {
           "hostedUIProviderCreds": "[]"
-        }
+        },
+        "rockpaperscissor345eab27": {}
       }
     }
   }

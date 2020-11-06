@@ -1,34 +1,16 @@
 {
   "auth": {
-    "imgclassificationapp82e56d58": {
+    "rockpaperscissor345eab27": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
     }
   },
-  "function": {
-    "S3Trigger436a6bb9": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true
-    }
-  },
   "storage": {
-    "S3uploadstorage": {
+    "myStorage": {
       "service": "S3",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "S3Trigger436a6bb9",
-          "attributes": [
-            "Name",
-            "Arn",
-            "LambdaExecutionRole"
-          ]
-        }
-      ]
+      "providerPlugin": "awscloudformation"
     }
   }
 }
