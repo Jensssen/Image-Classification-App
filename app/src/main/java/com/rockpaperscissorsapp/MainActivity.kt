@@ -30,9 +30,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val button = findViewById<Button>(R.id.btn_start_game)
-        button.setOnClickListener {
+        // Start Labeling Button
+        val button_start_game = findViewById<Button>(R.id.btn_start_game)
+        button_start_game.setOnClickListener {
             val myIntent = Intent(this, GameActivity::class.java)
+            this.startActivity(myIntent)
+        }
+
+        // Perform inference Button
+        val btn_labeling = findViewById<Button>(R.id.btn_labeling)
+        btn_labeling.setOnClickListener {
+            val myIntent = Intent(this, LabelingActivity::class.java)
             this.startActivity(myIntent)
         }
 
@@ -55,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        Log.i("aa", "a")
 //        Amplify.Auth.signIn(
 //            "soeren",
 //            "rockpaper123",

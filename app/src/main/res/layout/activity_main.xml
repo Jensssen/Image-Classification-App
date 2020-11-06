@@ -14,7 +14,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/btn_start_labeling"/>
+        android:text="@string/btn_start_game"/>
 
     <Button
         android:id="@+id/btn_logout"
@@ -27,5 +27,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_start_game"
         app:layout_constraintVertical_bias="0.873" />
+
+    <Button
+        android:id="@+id/btn_labeling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_start_labeling"
+        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_start_game" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
