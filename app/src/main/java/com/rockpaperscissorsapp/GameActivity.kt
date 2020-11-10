@@ -12,17 +12,25 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.amplifyframework.core.Amplify
+import kotlinx.android.synthetic.main.activity_game.*
 import java.io.File
 import java.io.File.separator
 import java.io.FileOutputStream
+import java.io.InputStream
 import java.io.OutputStream
 
 class GameActivity : AppCompatActivity() {
 
     val CAMERA_REQUEST_CODE = 0
-    var folder_name:String = ""
+    var rock_probability = 0.0
+    var paper_probability = 0.0
+    var scissor_probability = 0.0
+    var class_label = 0
+    var labels = arrayOf("Rock", "Paper", "Scissor")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +39,6 @@ class GameActivity : AppCompatActivity() {
         val btn_inference = findViewById<Button>(R.id.btn_inference)
 
         btn_inference.setOnClickListener{
-            folder_name = "inference"
             val callCameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             if (callCameraIntent.resolveActivity(packageManager) != null){
                 startActivityForResult(callCameraIntent, CAMERA_REQUEST_CODE)
@@ -60,14 +67,48 @@ class GameActivity : AppCompatActivity() {
                 Toast.makeText(this, "Unrecognised request code", Toast.LENGTH_SHORT).show()
             }
         }
+
+        Thread.sleep(9000)
+        downloadFile("inference_result/inference_result.txt")
     }
 
     private fun uploadFile(file: File) {
         Amplify.Storage.uploadFile(
-            folder_name + "/" + file.name,
+            "inference/inference.png",
             file,
             { result -> Log.i("MyAmplifyApp", "Successfully uploaded: " + result.getKey()) },
             { error -> Log.e("MyAmplifyApp", "Upload failed", error) }
+        )
+    }
+
+    private fun downloadFile(key: String) {
+        Log.i("MyAmplifyApp", applicationContext.filesDir.toString())
+        Amplify.Storage.downloadFile(
+            key,
+            File("/storage/emulated/0/Download/sagemaker_inference_result.txt"),
+            { result ->
+                Log.i(
+                    "MyAmplifyApp",
+                    "Successfully downloaded: ${result.getFile().name}"
+                )
+                val inputStream: InputStream = result.file.inputStream()
+
+                val inputString = inputStream.bufferedReader().use { it.readText() }
+                Log.i("MyAmplifyApp", inputString)
+                val strs = inputString.split(",").toTypedArray()
+
+
+                rock_probability = strs[0].replace("\"", "").toDouble() * 100
+                paper_probability = strs[1].replace("\"", "").toDouble() * 100
+                scissor_probability = strs[2].replace("\"", "").toDouble() * 100
+                class_label = strs[3].replace("\"", "").toInt()
+
+                tv_rock_probability.setText("Rock Probability: " + rock_probability.toString())
+                tv_paper_probability.setText("Paper Probability: " + paper_probability.toString())
+                tv_scissor_probability.setText("Scisso Probability: " + scissor_probability.toString())
+                tv_prediction.setText("Predicted Label: " + labels.get(class_label))
+            },
+            { error -> Log.e("MyAmplifyApp", "Download Failure", error) }
         )
     }
 

@@ -12,6 +12,10 @@
     <string name="btn_paper">Paper</string>
     <string name="btn_scissor">Scissor</string>
     <string name="btn_inference">Perform Inference</string>
+    <string name="tv_rock_probability">Rock Probability = </string>
+    <string name="tv_paper_probability">Paper Probability = </string>
+    <string name="tv_scissor_probability">Scissor Probability = </string>
+    <string name="tv_result">Prediction Result = </string>
 
 
 </resources>
