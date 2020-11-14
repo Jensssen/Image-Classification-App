@@ -28,4 +28,6 @@ The following Video demonstrates the App
 
 # Architecture
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/Jensssen/Image-Classification-App/blob/master/images/Rock_Paper_Scissor.png)
+
+![alt text](https://github.com/Jensssen/Image-Classification-App/blob/master/Rock_Paper_Scissor.png?raw=true)
