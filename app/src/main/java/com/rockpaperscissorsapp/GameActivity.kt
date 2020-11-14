@@ -81,6 +81,8 @@ class GameActivity : AppCompatActivity() {
         )
     }
 
+    fun TextView.setTextColor(color: Long) = this.setTextColor(color.toInt())
+
     private fun downloadFile(key: String) {
         Log.i("MyAmplifyApp", applicationContext.filesDir.toString())
         Amplify.Storage.downloadFile(
@@ -142,6 +144,14 @@ class GameActivity : AppCompatActivity() {
                     winner = 2
                 }
                 tv_final_result.setText(possible_outcomres.get(winner))
+                if (winner == 0){
+                    tv_final_result.setTextColor(0xff00ff00) //green
+                }
+                else if (winner == 1){
+                    tv_final_result.setTextColor(0xffff0000) //red
+                }else{
+                    tv_final_result.setTextColor(0xffffff00) //yellow
+                }
             },
             { error -> Log.e("MyAmplifyApp", "Download Failure", error) }
         )
