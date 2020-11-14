@@ -16,6 +16,7 @@
     <string name="tv_paper_probability">Paper Probability = </string>
     <string name="tv_scissor_probability">Scissor Probability = </string>
     <string name="tv_result">Prediction Result = </string>
+    <string name="tv_vs">  VS:  </string>
 
 
 </resources>

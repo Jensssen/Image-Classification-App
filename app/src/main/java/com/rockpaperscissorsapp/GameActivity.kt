@@ -30,7 +30,7 @@ class GameActivity : AppCompatActivity() {
     var scissor_probability = 0.0
     var class_label = 0
     var labels = arrayOf("Rock", "Paper", "Scissor")
-
+    var possible_outcomres = arrayOf("Player wins", "Computer wins", "Tie")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +107,41 @@ class GameActivity : AppCompatActivity() {
                 tv_paper_probability.setText("Paper Probability: " + paper_probability.toString())
                 tv_scissor_probability.setText("Scisso Probability: " + scissor_probability.toString())
                 tv_prediction.setText("Predicted Label: " + labels.get(class_label))
+                tv_prediction_2.setText(labels.get(class_label))
+
+                val rnds = (0..4).random() - 1
+                tv_computer_pred.setText(labels.get(rnds))
+
+                var winner = 0
+                // Rock vs Paper
+                if (class_label == 0 && rnds == 1){
+                    winner = 1
+                }
+                // Rock vs Scissor
+                if (class_label == 0 && rnds == 2){
+                    winner = 0
+                }
+                // Paper vs Rock
+                if (class_label == 1 && rnds == 0){
+                    winner = 0
+                }
+                // Paper vs Scissor
+                if (class_label == 1 && rnds == 2){
+                    winner = 1
+                }
+                // Scissor vs Rock
+                if (class_label == 2 && rnds == 0){
+                    winner = 1
+                }
+                // Scissor vs Paper
+                if (class_label == 2 && rnds == 1){
+                    winner = 0
+                }
+                // r p s vs r p s
+                if (class_label == rnds){
+                    winner = 2
+                }
+                tv_final_result.setText(possible_outcomres.get(winner))
             },
             { error -> Log.e("MyAmplifyApp", "Download Failure", error) }
         )

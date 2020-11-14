@@ -74,7 +74,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signIn(user: User) {
-        val tv_result_message = findViewById<TextView>(R.id.tv_login_message)
         Amplify.Auth.signIn(
             user.username,
             user.password,
@@ -91,6 +90,5 @@ class LoginActivity : AppCompatActivity() {
                 Log.e("AmplifyQuickstart", error.toString())
             }
         )
-        tv_result_message.text = "1111"
     }
 }
