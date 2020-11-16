@@ -111,7 +111,7 @@ class GameActivity : AppCompatActivity() {
                 tv_prediction.setText("Predicted Label: " + labels.get(class_label))
                 tv_prediction_2.setText(labels.get(class_label))
 
-                val rnds = (0..4).random() - 1
+                val rnds = (0..2).random()
                 tv_computer_pred.setText(labels.get(rnds))
 
                 var winner = 0

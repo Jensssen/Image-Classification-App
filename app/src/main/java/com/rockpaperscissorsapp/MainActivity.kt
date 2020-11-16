@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity() {
 
 
 //        Amplify.Auth.signIn(
-//            "soeren",
-//            "rockpaper123",
+//            "-",
+//            "-",
 //            { result -> Log.i("AuthQuickstart", if (result.isSignInComplete) "Sign in succeeded" else "Sign in not complete") },
 //            { error -> Log.e("AuthQuickstart", error.toString()) }
 //        )
@@ -74,23 +74,19 @@ class MainActivity : AppCompatActivity() {
 //            { error -> Log.e("AmplifyQuickstart", error.toString()) }
 //        )
 //        Amplify.Auth.signUp(
-//            "soeren",
-//            "rockpaper123",
+//            "-",
+//            "-",
 //            AuthSignUpOptions.builder().userAttribute(AuthUserAttributeKey.email(), "soeren.erichsen99@gmail.com").build(),
 //            { result -> Log.i("AuthQuickStart", "Result: $result") },
 //            { error -> Log.e("AuthQuickStart", "Sign up failed", error) }
 //        )
 
 //        Amplify.Auth.confirmSignUp(
-//            "soeren",
-//            "531196",
+//            "-",
+//            "-",
 //            { result -> Log.i("AuthQuickstart", if (result.isSignUpComplete) "Confirm signUp succeeded" else "Confirm sign up not complete") },
 //            { error -> Log.e("AuthQuickstart", error.toString()) }
 //        )
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     override fun onResume() {
@@ -102,8 +98,6 @@ class MainActivity : AppCompatActivity() {
             "External Storage",
             STORAGEREQUEST
         )
-
-
     }
 
 

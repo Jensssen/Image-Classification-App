@@ -1,6 +1,7 @@
 # Rock-Paper-Scissor-App
-An Android based App that plays Rock Paper Scissor against the user.
-
+This repository contains my Rock Paper Scissor Classification App Project. 
+It has been programmed using Kotlin and it uses AWS Sagemaker as a backend service to perform inference. The classification network is base on MobileNet V2 and fine tuned with custom images using Keras.
+ 
 # General Idea and Motivation behind the Project
 The general motivation behind this project was, to learn more about different AWS Services. In addition, I wanted to try out, writing a new App using Kotlin. To this point in time, I only developed apps in native Java code (eg. [SpotFoxx](https://github.com/Jensssen/SpotFoxx)). 
 
